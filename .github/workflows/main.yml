@@ -1,0 +1,25 @@
+name: Линтер для проекта
+
+on:
+  push:
+    branches: [ main ] # Запускается при пуше в ветку main
+  pull_request:
+    branches: [ main ] # Запускается при создании или обновлении pull request в ветку main
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest # Запускается на последней версии Ubuntu
+
+    steps:
+    - uses: actions/checkout@v4 # Использует действие для получения кода из репозитория
+
+    - name: Настройка Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '22' # Указываем версию Node.js
+
+    - name: Установка зависимостей
+      run: npm install # Устанавливает зависимости проекта
+
+    - name: Запуск линтера
+      run: npm run lint # Запускает скрипт линтера из package.json
